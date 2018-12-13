@@ -23,5 +23,3 @@ services:
             - TOKENS=ADZDEEEFEF,EZEZEZEZEZZEZ
         ports:
             - 3000:3000
-        volumes:
-            - /home/osallou/Development/NOSAVE/softwaremanager/myapp/ui:/root/softmngr/ui
