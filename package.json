@@ -1,0 +1,26 @@
+{
+  "name": "softmngr",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^2.0.1",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "influx": "^5.0.0-alpha.4",
+    "js-yaml": "^3.12.0",
+    "mongodb": "^3.1.9",
+    "monk": "^6.0.6",
+    "morgan": "~1.9.0",
+    "promise": "^8.0.2",
+    "request": "^2.88.0",
+    "requests": "^0.2.2",
+    "vue-resource": "^1.5.1",
+    "winston": "^3.1.0"
+  }
+}

@@ -1,0 +1,92 @@
+<html>
+    <head>
+            <link rel="stylesheet" href="app.css">
+            <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+            <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+            <script src=""></script>
+            
+
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Software manager</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                  
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#/">Softwares</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="app">
+            <router-view></router-view>
+        </div>
+
+        <script type="text/x-template" id="softwares">
+            <div class="row justify-content-md-center">
+                <div class="col-sm-8">
+                <table id="softwaresTable" class="table table-striped table-bordered">
+                    <thead class="thead-dark"><tr><td>Name</td><td>bio.tools</td><td>Link</td></tr></thead>
+                    <tbody>
+                    <tr v-for="(soft, index) in softwares">
+                        <td>{{soft.name}}</td>
+                        <td><a v-if="soft.uid" :href="'https://bio.tools/' + soft.uid" target="_blank">{{soft.uid}}</a></td>
+                        <td><router-link :to="{path: '/' + soft.name}">Details</router-link></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="software">
+            <div class="row justify-content-md-center">
+                <div class="col-sm-8">
+                    <div class="card">
+                        <div class="card-header">{{software.name}}</div>
+                        <div class="card-body">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div v-if="software.info">About: {{software.info}}</div>
+                                    <div v-if="bio" class="bio">
+                                        <div v-if="bio.description">Description: {{bio.description}}</div>
+                                        <div v-if="bio.homepage">Homepage: {{bio.homepage}}</div>
+                                        <div v-if="bio.license">License: {{bio.license}}</div>
+                                        <div>bio.tools: <a :href="'https://bio.tools/' + software.uid" target="_blank">{{software.uid}}</a></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table id="softwareTable" class="table table-striped table-bordered">
+                                <thead class="thead-dark"><tr><td>Version</td><td>Environment</td><td>Location</td><td>Type</td></tr></thead>
+                                <tbody>
+                                <tr v-for="(soft, index) in versions">
+                                    <td>{{soft.version}}</td>
+                                    <td><span v-if="soft.env">{{soft.env}}</span></td>
+                                    <td><span v-if="soft.location">{{soft.location}}</span></td>
+                                    <td><span v-if="soft.type">{{soft.type}}</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>        
+
+        <script src="softwares.js"></script>
+        <script src="software.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>

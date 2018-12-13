@@ -1,0 +1,10 @@
+mongo:
+  host: "mongo"
+  port: "27017"
+  db: "softmngr"
+influx:
+  host: "influx"
+  db: "softmngr"
+auth:
+  tokens:
+    - "ADZDEEEFEF"
