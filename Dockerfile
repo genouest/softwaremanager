@@ -13,5 +13,6 @@ COPY bin /root/softmngr/bin
 COPY public /root/softmngr/public
 COPY routes /root/softmngr/routes
 COPY config /root/softmngr/config
+COPY ui /root/softmngr/ui
 
 ENTRYPOINT /root/softmngr/bin/www
