@@ -14,16 +14,14 @@ var Software = {
             let soft = this.$route.params.id;
             this.$http.get('/soft/' + soft).then(
                 resp => {
-                    this.versions = resp.body.software;
-                    if(resp.body.software.length > 0) {
-                        this.software = resp.body.software[resp.body.software.length -1];
-                        this.getBioTools();
-                    }
+                    this.versions = resp.body.versions;
+                    this.software = resp.body.software;
+                    this.getBioTools();
                 },
                 err => {
                     console.log('Error', err)
                     // error callback
-                    this.software = [];
+                    this.software = {};
             });         
         },
         getBioTools: function() {
