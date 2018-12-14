@@ -26,7 +26,6 @@ var Software = {
         },
         getBioTools: function() {
             let soft = this.software.uid;
-            soft = 'SODa';
             if(this.software.uid) {
                 this.$http.get('https://bio.tools/api/' + soft + '/?format=json').then(
                     resp => {
