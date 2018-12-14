@@ -1,0 +1,141 @@
+swagger: "2.0"
+info:
+  description: "software manager API"
+  version: "1.0.0"
+  title: "Software Manager"
+  contact:
+    email: "support@genouest.org"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/v2"
+schemes:
+- "https"
+- "http"
+paths:
+  /soft:
+    post:
+      summary: "Add a new software and/or software version"
+      description: ""
+      operationId: "addSoftware"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "x-api-key"
+        in: "header"
+        required: true
+        type: "string"       
+      - in: "body"
+        name: "body"
+        description: "Software and/or version object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/SoftwareVersion"
+      responses:
+        403:
+          description: "Not authorized"
+        500:
+          description: "Error"
+        
+    get:
+      summary: "Finds softwares"
+      operationId: "findSoftwares"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Software"
+
+  /soft/{softId}:
+    get:
+      summary: "Find software by ID"
+      description: "Returns a software and available versions"
+      operationId: "getSoftwareById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "softId"
+        in: "path"
+        description: "ID of software to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SoftWareWithVersions"
+        404:
+          description: "Software not found"
+          
+definitions:
+  Software:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "Name fo the tool"
+      uid:
+        type: "string"
+        description: "bio.tools identifier"
+      description:
+        type: "string"
+        description: "optional short description"
+      info:
+        type: "string"
+        description: "optional additional information"
+    required:
+      - "name"
+
+  Version:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "auto generated unique identifier"
+      name:
+        type: "string"
+        description: "name of the software"
+      version:
+        type: "string"
+        description: "name of the version"
+      location:
+        type: "string"
+        description: "installation directory"
+      env:
+        type: "string"
+        description: "env file/module to load to use the tools"
+      info:
+        type: "string"
+        description: "additional info about the version"
+      type:
+        type: "string"
+        description: "type of installation (manual, conda, ..)"
+    required:
+      - "name"
+      - "version"
+      
+  SoftwareVersion:
+    type: "object"
+    properties:
+      software:
+        $ref: "#/definitions/Software"
+      version:
+        $ref: "#/definitions/Version"
+        
+  SoftWareWithVersions:
+    type: "object"
+    properties:
+      software:
+        $ref: "#/definitions/Software"
+      versions:
+        type: "array"
+        items:
+          $ref: "#/definitions/Version"
+
