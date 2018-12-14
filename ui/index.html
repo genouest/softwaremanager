@@ -58,7 +58,7 @@
 
                             <div class="card">
                                 <div class="card-body">
-                                    <div v-if="software.description">About: {{software.description}}</div>
+                                    <div v-if="software.description && bio && software.description!=bio.description">About: {{software.description}}</div>
                                     <div v-if="bio" class="bio">
                                         <div v-if="bio.description">Description: {{bio.description}}</div>
                                         <div v-if="bio.homepage">Homepage: {{bio.homepage}}</div>
