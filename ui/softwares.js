@@ -10,15 +10,13 @@ var Softwares = {
         getSoftwares: function() {
             this.$http.get('/soft').then(
                 resp => {
-                    console.log('Softwares', resp.body.softwares);
-                    //this.data.softwares = resp.body
-                    this.softwares = resp.body.softwares;
+                    this.softwares = resp.body.software;
                 },
                 err => {
                     console.log('Error', err)
                     // error callback
                     this.softwares = [];
-            });         
+            });
         }
     },
     beforeMount() {
@@ -26,7 +24,10 @@ var Softwares = {
     },
     updated: function() {
         this.$nextTick(function () {
-            $('#softwaresTable').DataTable();
+            $('#softwaresTable').DataTable({
+                "pageLength": 20,
+                "lengthMenu": [ 10, 20, 30, 50, 75, 100, 200 ]
+            });
           })
     }
 
