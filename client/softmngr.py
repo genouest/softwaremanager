@@ -1,7 +1,10 @@
-import requests
-import click
-import sys
 import json
+import sys
+
+import click
+
+import requests
+
 
 @click.command()
 @click.option('--apikey', help='api key [mandatory].')
@@ -24,7 +27,7 @@ def add(apikey, url, name, desc, bio, info, version, vinfo, vtype, venv, vlocati
         sys.exit(1)
     if not url:
         print("Url is mandatory")
-        sys.exit(1)   
+        sys.exit(1)
     headers = {
         'x-api-key': apikey
     }
@@ -45,14 +48,15 @@ def add(apikey, url, name, desc, bio, info, version, vinfo, vtype, venv, vlocati
             'location': vlocation,
             'info': vinfo
         }
-    
+
     if not url.endswith('/soft'):
         url += '/soft'
-    print("Send to " + url +"," + json.dumps(data))
-    r = requests.post(url, json = data, headers=headers)
+    print("Send to " + url + "," + json.dumps(data))
+    r = requests.post(url, json=data, headers=headers)
     if not r.status_code == 200:
         print("something went wrong")
         sys.exit(1)
+
 
 if __name__ == '__main__':
     add()
