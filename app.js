@@ -27,9 +27,8 @@ app.use(logger('combined'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'ui')));
-// app.use('/', indexRouter);
 app.use('/soft', softsRouter);
 app.use('/stat', statsRouter);
+app.use(express.static(path.join(__dirname, 'ui')));
 
 module.exports = app;

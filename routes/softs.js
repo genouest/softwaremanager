@@ -7,7 +7,7 @@ var router = express.Router();
 
 var CONFIG = require('config');
 
-if(process.env.TOKENS) {
+if (process.env.TOKENS) {
   CONFIG.auth.tokens = process.env.TOKENS.split(',')
 }
 
@@ -33,7 +33,7 @@ const SoftwareVersionTemplate = {
   type: 'manual|conda|...'
 };
 
-function checkSoftware(soft){
+function checkSoftware(soft) {
   if (! soft.name) { return [soft, false] };
   let checkedSoft = { name: soft.name, uid: '', info: '', description: '' }
   if (soft.uid) { checkedSoft.uid = soft.uid }
@@ -42,7 +42,7 @@ function checkSoftware(soft){
   return [checkedSoft, false]
 };
 
-function checkSoftwareVersion(soft){
+function checkSoftwareVersion(soft) {
   if (! soft.name) { return [soft, false] };
   if (! soft.version) { return [soft, true] };
   soft.id = soft.name + '_' + soft.version;
@@ -83,21 +83,22 @@ function compare(a,b) {
 router.get('/', function (req, res, next) {
   softs_db.find({}).then(
     results => {
-      console.log('softwares', results);
+      console.log('Software list: ', results);
       results.sort(compare);
-      res.send({'softwares': results});
+      res.send({'software': results});
       res.end()
     },
     err => {
-      console.log('Failed to get softwares');
-      res.status(500).send('Failed to get softwares');
+      console.log('Failed to get software');
+      res.status(500).send('Failed to get software');
     }
   )
 });
 
 /* GET selected software listing. */
 router.get('/:id', function(req, res, next) {
-  let softID = req.param('id');
+  let softID = req.params.id;
+
   softs_db.findOne({'name': softID}).then(
     soft => {
       if (soft === null) {
@@ -110,7 +111,7 @@ router.get('/:id', function(req, res, next) {
           res.end()
         },
         err => {
-          console.log('Failed to get softwaree');
+          console.log('Failed to get software');
           res.status(500).send('Failed to get software');
         }
       )
@@ -124,8 +125,8 @@ router.get('/:id', function(req, res, next) {
 
 /* GET selected software  and version. */
 router.get('/:id/:version', function(req, res, next) {
-  let softID = req.param('id');
-  let softVersion = req.param('version');
+  let softID = req.params.id;
+  let softVersion = req.params.version;
   softs_db.findOne({'name': softId}).then(
     soft => {
       if (soft === null) {
@@ -142,13 +143,13 @@ router.get('/:id/:version', function(req, res, next) {
           res.end()
         },
         err => {
-          console.log('Failed to get softwaree');
+          console.log('Failed to get software');
           res.status(500).send('Failed to get software');
         }
       )
     },
     err => {
-      console.log('Failed to get softwares');
+      console.log('Failed to get software');
       res.status(500).send('Failed to get software');
     }
   )
@@ -159,8 +160,8 @@ router.delete('/:id/:version', function(req, res, next) {
     res.status(403).send('Not authorized');
     return
   }
-  let softID = req.param('id');
-  let softVersion = req.param('version');
+  let softID = req.params.id;
+  let softVersion = req.params.version;
   versions_db.remove({'name': softID, 'version': softVersion}).then(
     _ => {
       res.send({msg: softId + '.' + softVersion + ' deleted'});
@@ -178,7 +179,7 @@ router.delete('/:id', function(req, res, next) {
     res.status(403).send('Not authorized');
     return
   }
-  let softID = req.param('id');
+  let softID = req.params.id;
   softs_db.remove({'name': softID}).then(
     _ => {
       versions_db.remove({'name': softID}).then(
@@ -200,7 +201,7 @@ router.delete('/:id', function(req, res, next) {
 });
 
 
-/* POST create or update a software version. 
+/* POST create or update a software version.
 
   Expects a dict {software: SoftwareTemplate, version: SoftwareVersionTemplate}
   Dict can contain either or both (to update software info and add or update a version)
@@ -210,13 +211,14 @@ router.post('/', function(req, res, next) {
     res.status(403).send('Not authorized');
     return
   }
-  let soft = req.param('software');
-  let version = req.param('version');
-  
+
+  let soft = req.body.software;
+  let version = req.body.version;
+
   let checkedSoft = null;
   let err = false;
 
-  if(soft) {
+  if (soft) {
     [checkedSoft, err] = checkSoftware(soft);
   }
   if (err) {
@@ -227,7 +229,7 @@ router.post('/', function(req, res, next) {
   let checkedSoftVersion = null;
   let errVersion = false;
 
-  if(version) {
+  if (version) {
     [checkedSoftVersion, errVersion] = checkSoftwareVersion(version);
   }
   if (errVersion) {
@@ -235,23 +237,23 @@ router.post('/', function(req, res, next) {
     return;
   }
 
-  if(soft){
+  if (soft) {
     softs_db.update({'name': checkedSoft.name}, checkedSoft, {upsert: true}).then( result => {
-      if(version) {
+      if (version) {
         versions_db.update({'id': checkedSoftVersion.id}, checkedSoftVersion, {upsert: true}).then( result => {
           res.send({software: checkedSoft, version: checkedSoftVersion});
           res.end();
-        }); 
+        });
       } else {
         res.send({software: checkedSoft, version: null});
         res.end();
       }
     });
-  } else if(version) {
+  } else if (version) {
     versions_db.update({'id': checkedSoftVersion.id}, checkedSoftVersion, {upsert: true}).then( result => {
       res.send({software: null, version: checkedSoftVersion});
         res.end();
-    });    
+    });
   }
 });
 

@@ -26,7 +26,7 @@ paths:
       - name: "x-api-key"
         in: "header"
         required: true
-        type: "string"       
+        type: "string"
       - in: "body"
         name: "body"
         description: "Software and/or version object that needs to be added to the store"
@@ -38,10 +38,10 @@ paths:
           description: "Not authorized"
         500:
           description: "Error"
-        
+
     get:
-      summary: "Finds softwares"
-      operationId: "findSoftwares"
+      summary: "Finds software"
+      operationId: "findSoftware"
       produces:
       - "application/json"
       responses:
@@ -86,7 +86,7 @@ paths:
       - name: "x-api-key"
         in: "header"
         required: true
-        type: "string"       
+        type: "string"
       - name: "softId"
         in: "path"
         description: "ID of software"
@@ -96,14 +96,14 @@ paths:
         in: "path"
         description: "versin of software"
         required: true
-        type: "string"        
+        type: "string"
       responses:
         200:
           description: "success"
         403:
           description: "Not authorized"
         500:
-          description: "Error"          
+          description: "Error"
 definitions:
   Software:
     type: "object"
@@ -150,7 +150,7 @@ definitions:
     required:
       - "name"
       - "version"
-      
+
   SoftwareVersion:
     type: "object"
     properties:
@@ -158,7 +158,7 @@ definitions:
         $ref: "#/definitions/Software"
       version:
         $ref: "#/definitions/Version"
-        
+
   SoftWareWithVersions:
     type: "object"
     properties:
@@ -168,4 +168,3 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Version"
-
