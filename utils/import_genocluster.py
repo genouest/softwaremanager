@@ -2,14 +2,20 @@ import os
 
 import requests
 
+blacklist = [
+    'envconda.sh'
+]
+
+skipped = []
+
 for root, dirs, files in os.walk("/softs/local/env"):
     for filename in files:
-        if not filename.startswith('env'):
+        if root.endswith('deprecated') or (not filename.startswith('env')) or filename in blacklist:
             continue
         elts = filename.replace('.sh', '').replace('env', '')
         subelts = elts.split('-')
         if len(subelts) < 2:
-            print('Skipping %s: no version found' % (filename))
+            skipped.append(filename)
             continue
         soft = subelts[0]
         version = '-'.join(subelts[1:])
@@ -24,7 +30,7 @@ for root, dirs, files in os.walk("/softs/local/env"):
             clean_name = rj['name']
 
         install_type = None
-        if os.path.exists("/softs/local/env/" + filename):
+        if os.path.exists(os.path.join(root, filename)):
             with open("/softs/local/env/" + filename, 'r') as env_content:
                 if 'genouest_conda_activate' in env_content.read():
                     install_type = 'Conda'
@@ -49,3 +55,7 @@ for root, dirs, files in os.walk("/softs/local/env"):
         }
         print('Inserting %s %s (%s)' % (clean_name, version, install_type))
         # r = requests.post('http://localhost:3000/soft', json=payload, headers=headers)
+
+print('Skipped because no version found:')
+for sk in skipped:
+    print(sk)
