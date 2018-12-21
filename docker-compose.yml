@@ -13,6 +13,8 @@ services:
             - INFLUXDB_WRITE_USER_PASSWORD=influx
     mongo:
         image: mongo
+        volumes:
+            - ./volumes/mongo:/data/db/
 
     softmngr:
         image: osallou/softmngr
