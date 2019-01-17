@@ -27,6 +27,19 @@ blacklist_env = [
     'envstar_static.sh',
     'enviprscan.sh',
     'envpython-2.7-bis.sh',
+    'envperl5.8.8.sh',
+    'envbusco.sh',
+    'envgcg.sh',
+    'envclasp-2.1.3-mt.sh',
+    'envprotomata-new-2.0.sh',
+    'envkissplice.sh',
+    'enviprscan_local.sh',
+    'envruby.sh',
+    'envEa-utils.sh',
+    'envqiimePLUS.sh',
+    'envmeneco.sh',
+    'envjava.sh',
+    'envflowcontrol.sh',
 ]
 
 # to blacklist some strange version numbers
@@ -42,11 +55,13 @@ name_convert = {
     'blast+': 'blast',
     'r': 'R',
     'cufflink': 'Cufflinks',
+    'qiime2': 'qiime',
 }
 
 hardcoded_envs = {
     'envncbi.sh': {'soft': 'NCBI toolkit', 'version': '6.1_2.2.23'},
     'envprotomata-new.sh': {'soft': 'Protomata', 'version': '2.0'},
+    'envprotomata-new-1.9.sh': {'soft': 'Protomata', 'version': '1.9'},
     'envemboss.sh': {'soft': 'Emboss', 'version': '6.5.7'},
     'envclustalw.sh': {'soft': 'Clustalw', 'version': '2.1'},
     'envwise.sh': {'soft': 'Genewise', 'version': '2.2.0'},
@@ -59,10 +74,60 @@ hardcoded_envs = {
     'envgassst.sh': {'soft': 'Gassst', 'version': '1.262'},
     'envgenemark.sh': {'soft': 'GeneMark', 'version': '3.9d'},
     'envprimer3.sh': {'soft': 'primer3', 'version': '2.3.4'},
+    'envgnuplot.sh': {'soft': 'gnuplot', 'version': '4.6.0'},
+    'envminia.sh': {'soft': 'Minia', 'version': '1.54'},
+    'envcangs.sh': {'soft': 'Cangs', 'version': '1.1'},
+    'envsubread.sh': {'soft': 'subread', 'version': '1.5.0-p1'},
+    'envactivetcvl-8.5.sh': {'soft': 'activetcl', 'version': '8.5'},
+    'envactivetcvl-8.6.sh': {'soft': 'activetcl', 'version': '8.6'},
+    'envclustal-omega.sh': {'soft': 'clustal_omega_ebi', 'version': '1.2.0'},
+    'envcutadapt-1-16.sh': {'soft': 'cutadapt', 'version': '1.16'},
+    'envruby-1.9.3-p448.sh': {'soft': 'ruby', 'version': '1.9.3-p448'},
+    'envfastq_screen.sh': {'soft': 'fastq_screen', 'version': '0.8.0'},
+    'envflexbar.sh': {'soft': 'flexbar', 'version': '2.4'},
+    'envmendelsoft.sh': {'soft': 'mendelsoft', 'version': '0.9.5'},
+    'envweblogo.sh': {'soft': 'weblog', 'version': '3.1'},
+    'envorthomcl.sh': {'soft': 'orthomcl', 'version': '2.0.9'},
+    'envpal2nal.sh': {'soft': 'pal2nal', 'version': '14'},
+    'envdoxygen.sh': {'soft': 'doxygen', 'version': '1.8.12'},
+    'envtiptop.sh': {'soft': 'tiptop', 'version': '2.3'},
+    'envmcl.sh': {'soft': 'mcl', 'version': '14.137'},
+    'envaugustus.sh': {'soft': 'augustus', 'version': '3.0'},
+    'envfastqc.sh': {'soft': 'fastqc', 'version': '0.11.5'},
+    'envsamtools.sh': {'soft': 'samtools', 'version': '1.2'},
+    'envnarcisse.sh': {'soft': 'narcisse', 'version': '2.3.2'},
+    'envqiime.sh': {'soft': 'qiime', 'version': '1.3.0'},
+    'envmetools.sh': {'soft': 'MEtools', 'version': 'unknown'},
+    'envribopicker.sh': {'soft': 'ribopicker', 'version': '0.4.3'},
+    'envcrass.sh': {'soft': 'crass', 'version': '0.3.6'},
+    'envhhsuite.sh': {'soft': 'hhsuite', 'version': '2.0.16'},
+    'envglint.sh': {'soft': 'glint', 'version': '1.0.rc6'},
+    'envqtlmap.sh': {'soft': 'QTLmap', 'version': '0.9.4'},
+    'envecho.sh': {'soft': 'echo', 'version': '1.12'},
+    'envwgs.sh': {'soft': 'WGS', 'version': '7.0'},
+    'envbamtools.sh': {'soft': 'bamtools', 'version': '2.1.1'},
+    'envgmap.sh': {'soft': 'gmap', 'version': '2012-05'},
+    'envmacs.sh': {'soft': 'macs', 'version': '1.4.1'},
+    'envcpc.sh': {'soft': 'Coding Potential Calculator', 'version': '0.9-r2'},
+    'enveval.sh': {'soft': 'eval', 'version': '2.2.8'},
+    'enstan.sh': {'soft': 'STAN', 'version': '2011'},
+    'envmoduleorganizer.sh': {'soft': 'moduleorganizer', 'version': '2009'},
+    'envzgrviewer.sh': {'soft': 'zgrviewer', 'version': '0.8.2'},
+    'envmfold.sh': {'soft': 'mfold', 'version': '3.5'},
+    'envunafold.sh': {'soft': 'unafold', 'version': '3.7'},
+    'envraxml.sh': {'soft': 'raxml', 'version': '8.0.25'},
+    'envvmatch.sh': {'soft': 'vmatch', 'version': '2.0'},
+    'envcplex.sh': {'soft': 'cplex', 'version': '110'},
 }
 
 biotools_precise_name = {
     'muscle': 'muscle_ebi',
+    'allpathslg': 'Allpaths-LG',
+    'blast2go-cli': 'Blast2GO',
+    'interproscan': 'interproscan_4',
+    'sra-tools': 'SRA_toolkit',
+    'viennarna': 'vienna_rna_package',
+    'wise': 'genewise',
 }
 
 skipped = []
@@ -153,12 +218,14 @@ for root, dirs, files in os.walk("/softs/local/env"):
         print('Inserting %s %s (%s)' % (clean_name, version, install_type))
         # r = requests.post('http://localhost:3000/soft', json=payload, headers=headers)
 
-print()
-print('Skipped because no version found:')
-for sk in skipped:
-    print(sk)
+if len(skipped) > 0:
+    print()
+    print('Skipped because no version found:')
+    for sk in skipped:
+        print(sk)
 
-print()
-print('Skipped because current:')
-for sk in current:
-    print(sk)
+if len(current) > 0:
+    print()
+    print('Skipped because current:')
+    for sk in current:
+        print(sk)
