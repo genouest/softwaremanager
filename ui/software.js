@@ -22,7 +22,7 @@ var Software = {
                     console.log('Error', err)
                     // error callback
                     this.software = {};
-            });         
+            });
         },
         getBioTools: function() {
             let soft = this.software.uid;
@@ -33,8 +33,8 @@ var Software = {
                     },
                     err => {
                         console.log('no biotools', err)
-                }); 
-            } 
+                });
+            }
         }
     },
     beforeMount() {
