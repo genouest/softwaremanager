@@ -40,6 +40,8 @@ blacklist_env = [
     'envmeneco.sh',
     'envjava.sh',
     'envflowcontrol.sh',
+    'envglibc-2.14.sh',
+    'envklastrunner-4.3.sh',
 ]
 
 # to blacklist some strange version numbers
@@ -123,11 +125,16 @@ hardcoded_envs = {
 biotools_precise_name = {
     'muscle': 'muscle_ebi',
     'allpathslg': 'Allpaths-LG',
-    'blast2go-cli': 'Blast2GO',
+    'blast2go_cli': 'Blast2GO',
     'interproscan': 'interproscan_4',
     'sra-tools': 'SRA_toolkit',
     'viennarna': 'vienna_rna_package',
     'wise': 'genewise',
+    'entrez-direct': 'entrez',
+    'gatb-core': 'GATB',
+    'hmmer': 'HMMER3',
+    'macs2': 'MACS',
+    'mafft': 'mafft_ebi',
 }
 
 skipped = []
