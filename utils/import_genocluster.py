@@ -108,9 +108,9 @@ hardcoded_envs = {
     'envbamtools.sh': {'soft': 'bamtools', 'version': '2.1.1'},
     'envgmap.sh': {'soft': 'gmap', 'version': '2012-05'},
     'envmacs.sh': {'soft': 'macs', 'version': '1.4.1'},
-    'envcpc.sh': {'soft': 'Coding Potential Calculator', 'version': '0.9-r2'},
+    'envCPC.sh': {'soft': 'CPC', 'version': '0.9-r2'},
     'enveval.sh': {'soft': 'eval', 'version': '2.2.8'},
-    'enstan.sh': {'soft': 'STAN', 'version': '2011'},
+    'envstan.sh': {'soft': 'STAN', 'version': '2011'},
     'envmoduleorganizer.sh': {'soft': 'moduleorganizer', 'version': '2009'},
     'envzgrviewer.sh': {'soft': 'zgrviewer', 'version': '0.8.2'},
     'envmfold.sh': {'soft': 'mfold', 'version': '3.5'},
@@ -216,7 +216,7 @@ for root, dirs, files in os.walk("/softs/local/env"):
             "x-api-key": "ADZDEEEFEF"
         }
         print('Inserting %s %s (%s)' % (clean_name, version, install_type))
-        # r = requests.post('http://localhost:3000/soft', json=payload, headers=headers)
+        r = requests.post('http://localhost:3000/soft', json=payload, headers=headers)
 
 if len(skipped) > 0:
     print()
