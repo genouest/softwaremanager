@@ -52,4 +52,19 @@ router.put('/:id/:version', function( req, res, next) {
   })
 });
 
+router.put('/:id', function( req, res, next) {
+  if(!isAllowed(req)){
+    res.status(403).send('unauthorized');
+  }
+  influx.writePoints([
+    {
+      measurement: 'stats',
+      tags: { soft: req.params['id'], version: 'none' },
+      fields: { value: 1 },
+    }
+  ]).then(() => {
+    res.status(200).send('done');
+  })
+});
+
 module.exports = router;
