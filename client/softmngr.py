@@ -31,17 +31,53 @@ def add(apikey, url, name, desc, bio, info, version, vinfo, vtype, venv, vlocati
     headers = {
         'x-api-key': apikey
     }
+
+    biotools_precise_name = {
+        'muscle': 'muscle_ebi',
+        'allpathslg': 'Allpaths-LG',
+        'blast2go_cli': 'Blast2GO',
+        'interproscan': 'interproscan_4',
+        'sra-tools': 'SRA_toolkit',
+        'viennarna': 'vienna_rna_package',
+        'wise': 'genewise',
+        'entrez-direct': 'entrez',
+        'gatb-core': 'GATB',
+        'hmmer': 'HMMER3',
+        'macs2': 'MACS',
+        'mafft': 'mafft_ebi',
+    }
+
+    if not bio and not desc:
+        biotools_req = name
+        if name in biotools_precise_name:
+            biotools_req = biotools_precise_name[name]
+        r = requests.get('https://bio.tools/api/' + biotools_req + '/?format=json')
+
+        uid = ''
+        desc = ''
+        clean_name = name.capitalize()
+        if r.status_code == 200:
+            uid = name
+            rj = r.json()
+            desc = rj['description']
+            clean_name = rj['name']
+            if clean_name.endswith(' (EBI)') or clean_name.endswith(' (NIH)'):
+                clean_name = clean_name[:-6]
+    else:
+        clean_name = name.capitalize()
+        uid = bio
+
     data = {
         'software': {
-            'name': name,
+            'name': clean_name,
             'description': desc,
             'info': info,
-            'uid': bio
+            'uid': uid
         }
     }
     if version:
         data['version'] = {
-            'name': name,
+            'name': clean_name,
             'version': version,
             'type': vtype,
             'env': venv,
