@@ -13,7 +13,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "influx": "^5.0.0-alpha.4",
-    "js-yaml": "^3.12.0",
+    "js-yaml": "^3.13.1",
     "mongodb": "^3.1.9",
     "monk": "^6.0.6",
     "morgan": "~1.9.0",
