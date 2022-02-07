@@ -8,15 +8,7 @@ var Softwares = {
     },
     methods: {
         getSoftwares: function() {
-            this.$http.get('/soft').then(
-                resp => {
-                    this.softwares = resp.body.software;
-                },
-                err => {
-                    console.log('Error', err)
-                    // error callback
-                    this.softwares = [];
-            });
+            fetch('/soft').then(resp => {return resp.json()}).then(s => {this.softwares = s.software;}).catch(err => {console.error(err); this.softwares = []});
         }
     },
     beforeMount() {

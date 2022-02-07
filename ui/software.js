@@ -12,27 +12,15 @@ var Software = {
     methods: {
         getSoftware: function() {
             let soft = this.$route.params.id;
-            this.$http.get('/soft/' + soft).then(
-                resp => {
-                    this.versions = resp.body.versions;
-                    this.software = resp.body.software;
-                    this.getBioTools();
-                },
-                err => {
-                    console.log('Error', err)
-                    // error callback
-                    this.software = {};
+            fetch('/soft/'+soft).then(resp => {return resp.json()}).then(s => {this.versions = s.versions; this.software = s.software;}).catch(err => {
+                console.error(err); this.software ={};
             });
         },
         getBioTools: function() {
             let soft = this.software.uid;
             if(this.software.uid) {
-                this.$http.get('https://bio.tools/api/' + soft + '/?format=json').then(
-                    resp => {
-                        this.bio = resp.body;
-                    },
-                    err => {
-                        console.log('no biotools', err)
+                fetch('https://bio.tools/api/' + soft + '/?format=json').then(resp => {return resp.json()}).then(s => {this.bio = s;}).catch(err => {
+                    console.error(err);
                 });
             }
         }
