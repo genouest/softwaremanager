@@ -127,7 +127,7 @@ router.get('/:id', function(req, res, next) {
 router.get('/:id/:version', function(req, res, next) {
   let softID = req.params.id;
   let softVersion = req.params.version;
-  softs_db.findOne({'name': softId}).then(
+  softs_db.findOne({'name': softID}).then(
     soft => {
       if (soft === null) {
         res.status(404).send(softID + ' not found');
@@ -164,7 +164,7 @@ router.delete('/:id/:version', function(req, res, next) {
   let softVersion = req.params.version;
   versions_db.remove({'name': softID, 'version': softVersion}).then(
     _ => {
-      res.send({msg: softId + '.' + softVersion + ' deleted'});
+      res.send({msg: softID + '.' + softVersion + ' deleted'});
       res.end()
     },
     _ => {
@@ -183,8 +183,8 @@ router.delete('/:id', function(req, res, next) {
   softs_db.remove({'name': softID}).then(
     _ => {
       versions_db.remove({'name': softID}).then(
-        res => {
-          res.send({msg: softId + ' deleted'});
+        _ => {
+          res.send({msg: softID + ' deleted'});
           res.end()
         },
         err => {
